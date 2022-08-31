@@ -1,9 +1,8 @@
 from Lexical.analyzer import LexicalAnalyser
-from Syntatical.analyzer import Syntatical_Analysis
 
-file = open('codigo-teste-1.ssl', 'r', encoding = 'utf-8')
+file = open('codigo-teste.ssl', 'r', encoding = 'utf-8')
 
-lexical = LexicalAnalyser(file)
-lexical.run()
+lexicalFile = LexicalAnalyser(file)
+lexicalFile.analyse()
 
 file.close()

@@ -255,7 +255,7 @@ class LexicalAnalyser:
             self.lexicalError = True
             print("Character "+str(self.ch+1)+" not expected in the line " + str(self.line))
 
-    def run(self):
+    def analyse(self):
         self.next_Char = self.arq.read(1)
         token_Aux = self.next_Token()
         while token_Aux != EOF:

@@ -1,3 +1,2 @@
-# Compilador-Final
-Para realizar os testes, basta trocar o nome do arquivo na main.py
-O código gerado é escrito em codigo_Gerado.txt
+# Compilador Léxico
+Para executar, basta adicionar o path do arquivo a ser testado em main.py

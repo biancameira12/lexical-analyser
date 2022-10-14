@@ -1,5 +1,5 @@
 from operator import truediv
-from Lexical.KeyWords import *
+from Lexical.keyWords import *
 import string
 
 KEY_WORDS = ["array", "boolean", "break", "char", "continue", "do", "else", "false", "function", "if", "integer", "of", "string", "struct", "true", "type", "var", "while"]

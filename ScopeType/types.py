@@ -1,6 +1,5 @@
-from Scope.classes import *
-
-#Types
+from ScopeType.classes import t_attrib
+from ScopeType.ScopeAnalyzer import object
 
 t= object()
 f= object()
@@ -44,6 +43,3 @@ MC_=t_attrib()
 LE_=t_attrib()
 LE0_=t_attrib()
 LE1_=t_attrib()
-MT_=t_attrib()
-ME_=t_attrib()
-MW_=t_attrib()

@@ -1,4 +1,4 @@
-from Lexical.KeyWords import *
+from Lexical.keyWords import *
 
 TOKEN_TYPES = [INTEGER, CHAR, BOOLEAN, STRING, ID]
 

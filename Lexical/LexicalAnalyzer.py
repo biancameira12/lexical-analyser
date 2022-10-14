@@ -3,6 +3,7 @@ from Lexical.keyWords import *
 import string
 
 KEY_WORDS = ["array", "boolean", "break", "char", "continue", "do", "else", "false", "function", "if", "integer", "of", "string", "struct", "true", "type", "var", "while"]
+KEY_WORDS_TYPES = [ARRAY, BOOLEAN, BREAK, CHAR, CONTINUE, DO, ELSE, FALSE, FUNCTION, IF, INTEGER, OF, STRING, STRUCT, TRUE, TYPE, VAR, WHILE]
 
 class LexicalAnalyser:
     _isLexical = True
@@ -23,7 +24,7 @@ class LexicalAnalyser:
     def SearchKeyWord(self, name): 
         try:
             index = KEY_WORDS.index(name)
-            return index
+            return KEY_WORDS_TYPES[index]
         except(ValueError):
             return ID
     
@@ -37,7 +38,7 @@ class LexicalAnalyser:
     def NextCharIsSymbol(self):
 
         if self._nextChar == "\'":
-            token = CHARACTER
+            token = CHAR
             self._nextChar = self._arq.read(1)
             self._char+=1
             self._secondaryToken = self.AddVariable(self._nextChar)
@@ -145,7 +146,7 @@ class LexicalAnalyser:
                 self._nextChar = self._arq.read(1)
                 self._char+=1
             else:
-                token=LESS_THAN
+                token=LESS
 
         elif self._nextChar == ">":
             self._nextChar = self._arq.read(1)
@@ -155,7 +156,7 @@ class LexicalAnalyser:
                 self._nextChar = self._arq.read(1)
                 self._char+=1
             else:
-                token = GREATER_THAN
+                token = GREATER
 
         elif self._nextChar == "!":
             self._nextChar = self._arq.read(1)
@@ -210,7 +211,7 @@ class LexicalAnalyser:
                 self._nextChar = self._arq.read(1)
                 self._char+=1
             num = sep.join(num_Aux)
-            token = NUMERAL
+            token = INTEGER
             self._secondaryToken = self.AddVariable(num)
 
         elif IsAlnum(self._nextChar):

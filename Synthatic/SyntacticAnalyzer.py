@@ -1,63 +1,59 @@
-from Lexical.keyWords import *
+from Lexical.KeyWords import *
+from Synthatic.states import *
+import csv
 
-TOKEN_TYPES = [INTEGER, CHAR, BOOLEAN, STRING, ID]
-
+TAB_ACTION_GOTO = list(csv.reader(open("actionTableTreated.csv","r"), delimiter = ","))
+LEFT = [B, CHR, DC, DC, DE, DE, DF, DT, DT, DT, DV, E, E, E, F, F, F, F, F, F, F, F, F, F, F, F, F, F, FALSE, IDD, IDU, L, L, L, L, L, L, L, LDE, LDE, LDV, LDV, LE, LE, LI, LI, LP, LP, LS, LS, LV, LV, LV, NUM, P, R, R, R, S, S, S, S, S, S, S, S, STR, T, T, T, T, T, TRUE, Y, Y, Y,]
+LEN = [1,4,1,5,3,1,1,8,9,7,4,5,3,3,1,1,2,2,2,2,3,4,2,2,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,2,1,2,1,3,1,3,1,5,3,2,1,3,4,1,1,1,3,3,1,5,7,5,7,1,4,2,2,1,1,1,1,1,1,1,3,3,1]
 
 class Syntactic_Analysis:
     LEXICAL = None
     NEXT_TOKEN = None
     IS_SYNTACTICAL = True
+    FILO = [0]
 
     def __init__(self, LEXICAL):
         self.LEXICAL = LEXICAL
-        NEXT_TOKEN = LEXICAL.GetToken()
-
-    def expr(self):
-        ##term()
-        token = self.LEXICAL.GetToken()
-        while token == PLUS or token == MINUS or token == DIVIDE or token == TIMES:
-            ##term()
-            print("Exit <expr>")
-
-
-
-    def isNewVariable(self):
-        NEXT_TOKEN = self.LEXICAL.GetToken()
-        if (NEXT_TOKEN != ID):
-            self.IS_SYNTACTICAL = False
-            print("Not ID:" + str(NEXT_TOKEN))
-
-        NEXT_TOKEN = self.LEXICAL.GetToken()
-        if (NEXT_TOKEN != COLON):
-            self.IS_SYNTACTICAL = False
-            print("Not COLON:" + str(NEXT_TOKEN))
-
-        NEXT_TOKEN = self.LEXICAL.GetToken()
-        if (TOKEN_TYPES.count(NEXT_TOKEN) == 0):
-            self.IS_SYNTACTICAL = False
-            print("Not Type:" + str(NEXT_TOKEN))  
-
-        NEXT_TOKEN = self.LEXICAL.GetToken()
-        if (NEXT_TOKEN != SEMI_COLON):
-            self.IS_SYNTACTICAL = False
-            print("Not SEMI_COLON:" + str(NEXT_TOKEN))  
-
+        for i in range (len(TAB_ACTION_GOTO)):
+            for j in range (len(TAB_ACTION_GOTO[0])):
+                if (TAB_ACTION_GOTO[i][j] == ''):
+                    TAB_ACTION_GOTO[i][j] = 0
+                else:
+                    TAB_ACTION_GOTO[i][j] = int(TAB_ACTION_GOTO[i][j])
+        
     def parse(self):
 
-        count = -1
-        while (self.IS_SYNTACTICAL and self.NEXT_TOKEN != EOF):
-            count += 1
-            self.NEXT_TOKEN = self.LEXICAL.GetToken()
-
-            if (self.NEXT_TOKEN == VAR ):
-                self.isNewVariable()
-                continue      
+        q = 0
+        self.NEXT_TOKEN = self.LEXICAL.GetToken()
+        try:
+            while (self.IS_SYNTACTICAL):
+                print ("Token:")
+                action = TAB_ACTION_GOTO[q][self.NEXT_TOKEN]
                 
+                if action > 0:
+                    self.FILO.append(action)
+                    self.NEXT_TOKEN = self.LEXICAL.GetToken()
+                elif action < 0:
+                    for i in range ((LEN[(-1)*action])):
+                        self.FILO.pop()
+                    self.FILO.append(TAB_ACTION_GOTO[self.FILO[-1]][LEFT[action]])
+                    self.NEXT_TOKEN = self.LEXICAL.GetToken()
+                else:
+                    self.IS_SYNTACTICAL = False
+                    break 
+
+                if (len(self.FILO) == 0):
+                    break   
+
+                q = self.FILO[-1]  
+        except(ValueError):
+            print("ValueError")
+            self.IS_SYNTACTICAL = False
 
 
         if (self.IS_SYNTACTICAL):
             print("It s a syntactical file")
         else:
-             print("Sintaxe Error in line " + str(count))   
+             print("Sintaxe Error in line ")   
         
 

@@ -4,7 +4,7 @@ import csv
 
 TAB_ACTION_GOTO = list(csv.reader(open("actionTableTreated.csv","r"), delimiter = ","))
 LEFT = [B, CHR, DC, DC, DE, DE, DF, DT, DT, DT, DV, E, E, E, F, F, F, F, F, F, F, F, F, F, F, F, F, F, FALSE, IDD, IDU, L, L, L, L, L, L, L, LDE, LDE, LDV, LDV, LE, LE, LI, LI, LP, LP, LS, LS, LV, LV, LV, NUM, P, R, R, R, S, S, S, S, S, S, S, S, STR, T, T, T, T, T, TRUE, Y, Y, Y,]
-LEN = [1,4,1,5,3,1,1,8,9,7,4,5,3,3,1,1,2,2,2,2,3,4,2,2,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,2,1,2,1,3,1,3,1,5,3,2,1,3,4,1,1,1,3,3,1,5,7,5,7,1,4,2,2,1,1,1,1,1,1,1,3,3,1]
+LEN = [4,1,5,3,1,1,8,9,7,4,5,3,3,1,1,2,2,2,2,3,4,2,2,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,2,1,2,1,3,1,3,1,5,3,2,1,3,4,1,1,1,3,3,1,5,7,5,7,1,4,2,2,1,1,1,1,1,1,1,3,3,1]
 
 class Syntactic_Analysis:
     LEXICAL = None
@@ -37,7 +37,6 @@ class Syntactic_Analysis:
                     for i in range ((LEN[(-1)*action])):
                         self.FILO.pop()
                     self.FILO.append(TAB_ACTION_GOTO[self.FILO[-1]][LEFT[action]])
-                    self.NEXT_TOKEN = self.LEXICAL.GetToken()
                 else:
                     self.IS_SYNTACTICAL = False
                     break 

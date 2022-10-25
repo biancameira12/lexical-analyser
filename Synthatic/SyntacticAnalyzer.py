@@ -1,4 +1,5 @@
 from Lexical.KeyWords import *
+from Semantic.SematicAnalyzer import SemanticAnalyser
 from Synthatic.states import *
 import csv
 
@@ -22,7 +23,6 @@ class Syntactic_Analysis:
                     TAB_ACTION_GOTO[i][j] = int(TAB_ACTION_GOTO[i][j])
         
     def parse(self):
-
         q = 0
         self.NEXT_TOKEN = self.LEXICAL.GetToken()
         try:
@@ -37,6 +37,7 @@ class Syntactic_Analysis:
                     for i in range ((LEN[(-1)*action])):
                         self.FILO.pop()
                     self.FILO.append(TAB_ACTION_GOTO[self.FILO[-1]][LEFT[action]])
+                    SemanticAnalyser(self.lexical, action)
                 else:
                     self.IS_SYNTACTICAL = False
                     break 
@@ -49,9 +50,9 @@ class Syntactic_Analysis:
             print("ValueError")
             self.IS_SYNTACTICAL = False
 
-
         if (self.IS_SYNTACTICAL):
             print("It s a syntactical file")
+            
         else:
              print("Sintaxe Error in line ")   
         

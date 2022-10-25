@@ -16,8 +16,8 @@ nCurrentLevel = 0
 
 global labelNo
 labelNo = 0
-global nFuncs
-nFuncs = 0
+global _nFuncs
+_nFuncs = 0
 global constPool
 constPool = 0
 global curFunction
